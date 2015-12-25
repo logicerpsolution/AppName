@@ -1,3 +1,33 @@
+/* <copyright>
+Copyright (c) 2012, Motorola Mobility LLC.
+All Rights Reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of Motorola Mobility LLC nor the names of its
+  contributors may be used to endorse or promote products derived from this
+  software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+</copyright> */
 /**
     @module "ui/main.reel"
     @requires montage
@@ -6,123 +36,95 @@
 var Montage = require("montage").Montage,
     Component = require("montage/ui/component").Component;
 
+var MontageCar = require("m-car/m-car").MontageCar;
+
 /**
     Description TODO
     @class module:"ui/main.reel".Main
     @extends module:ui/component.Component
 */
 exports.Main = Montage.create(Component, /** @lends module:"ui/main.reel".Main# */ {
-    
-    templateDidLoad: {
+
+    didCreate: {
         value: function() {
-            this.searchResults = [
-        {"id": 1, "firstName": "James", "lastName": "King", "managerId": 0, managerName: "", "title": "President and CEO", "department": "Corporate", "cellPhone": "617-000-0001", "officePhone": "781-000-0001", "email": "jking@fakemail.com", "city": "Boston, MA", "pic": "james_king.jpg", "twitterId": "@fakejking", "blog": "http://coenraets.org"},
-        {"id": 2, "firstName": "Julie", "lastName": "Taylor", "managerId": 1, managerName: "James King", "title": "VP of Marketing", "department": "Marketing", "cellPhone": "617-000-0002", "officePhone": "781-000-0002", "email": "jtaylor@fakemail.com", "city": "Boston, MA", "pic": "julie_taylor.jpg", "twitterId": "@fakejtaylor", "blog": "http://coenraets.org"},
-        {"id": 3, "firstName": "Eugene", "lastName": "Lee", "managerId": 1, managerName: "James King", "title": "CFO", "department": "Accounting", "cellPhone": "617-000-0003", "officePhone": "781-000-0003", "email": "elee@fakemail.com", "city": "Boston, MA", "pic": "eugene_lee.jpg", "twitterId": "@fakeelee", "blog": "http://coenraets.org"},
-        {"id": 4, "firstName": "John", "lastName": "Williams", "managerId": 1, managerName: "James King", "title": "VP of Engineering", "department": "Engineering", "cellPhone": "617-000-0004", "officePhone": "781-000-0004", "email": "jwilliams@fakemail.com", "city": "Boston, MA", "pic": "john_williams.jpg", "twitterId": "@fakejwilliams", "blog": "http://coenraets.org"},
-        {"id": 5, "firstName": "Ray", "lastName": "Moore", "managerId": 1, managerName: "James King", "title": "VP of Sales", "department": "Sales", "cellPhone": "617-000-0005", "officePhone": "781-000-0005", "email": "rmoore@fakemail.com", "city": "Boston, MA", "pic": "ray_moore.jpg", "twitterId": "@fakermoore", "blog": "http://coenraets.org"},
-        {"id": 6, "firstName": "Paul", "lastName": "Jones", "managerId": 4, managerName: "John Williams", "title": "QA Manager", "department": "Engineering", "cellPhone": "617-000-0006", "officePhone": "781-000-0006", "email": "pjones@fakemail.com", "city": "Boston, MA", "pic": "paul_jones.jpg", "twitterId": "@fakepjones", "blog": "http://coenraets.org"},
-        {"id": 7, "firstName": "Paula", "lastName": "Gates", "managerId": 4, managerName: "John Williams", "title": "Software Architect", "department": "Engineering", "cellPhone": "617-000-0007", "officePhone": "781-000-0007", "email": "pgates@fakemail.com", "city": "Boston, MA", "pic": "paula_gates.jpg", "twitterId": "@fakepgates", "blog": "http://coenraets.org"},
-        {"id": 8, "firstName": "Lisa", "lastName": "Wong", "managerId": 2, managerName: "Julie Taylor", "title": "Marketing Manager", "department": "Marketing", "cellPhone": "617-000-0008", "officePhone": "781-000-0008", "email": "lwong@fakemail.com", "city": "Boston, MA", "pic": "lisa_wong.jpg", "twitterId": "@fakelwong", "blog": "http://coenraets.org"},
-        {"id": 9, "firstName": "Gary", "lastName": "Donovan", "managerId": 2, managerName: "Julie Taylor", "title": "Marketing Manager", "department": "Marketing", "cellPhone": "617-000-0009", "officePhone": "781-000-0009", "email": "gdonovan@fakemail.com", "city": "Boston, MA", "pic": "gary_donovan.jpg", "twitterId": "@fakegdonovan", "blog": "http://coenraets.org"},
-        {"id": 10, "firstName": "Kathleen", "lastName": "Byrne", "managerId": 5, managerName: "Ray Moore", "title": "Sales Representative", "department": "Sales", "cellPhone": "617-000-0010", "officePhone": "781-000-0010", "email": "kbyrne@fakemail.com", "city": "Boston, MA", "pic": "kathleen_byrne.jpg", "twitterId": "@fakekbyrne", "blog": "http://coenraets.org"},
-        {"id": 11, "firstName": "Amy", "lastName": "Jones", "managerId": 5, managerName: "Ray Moore", "title": "Sales Representative", "department": "Sales", "cellPhone": "617-000-0011", "officePhone": "781-000-0011", "email": "ajones@fakemail.com", "city": "Boston, MA", "pic": "amy_jones.jpg", "twitterId": "@fakeajones", "blog": "http://coenraets.org"},
-        {"id": 12, "firstName": "Steven", "lastName": "Wells", "managerId": 4, managerName: "John Williams", "title": "Software Architect", "department": "Engineering", "cellPhone": "617-000-0012", "officePhone": "781-000-0012", "email": "swells@fakemail.com", "city": "Boston, MA", "pic": "steven_wells.jpg", "twitterId": "@fakeswells", "blog": "http://coenraets.org"}
-    ];
-            this.application.addEventListener("selectedEmployeeEvent", this, false);
-            this.application.addEventListener("closeSearchEvent", this, false);
-            this.application.addEventListener("openSearchEvent", this, false);
-            this.application.addEventListener("doSearchEvent", this, false);
-            //
-            var scope = this;
-            this.searchBoxElement.addEventListener("keypress", function (e) {
-                    if (e.keyCode === 13) {
-                        scope.dispatchEventNamed("openSearchEvent", true, true, null);
-                    }
-                    }, false);
-            this.searchBoxElement.addEventListener("keyup", function (e) {
-                    scope.dispatchEventNamed("doSearchEvent", true, true, null);
-                    }, false);
+            this.vehicle = MontageCar.create();
         }
     },
-    
-    searchResults: {
-        distinct: true,
-        value:  []
-    },
 
-    searchResultsController: {
+    vehicle: {
         value: null
     },
 
-    selectedEmployee: {
+    vehicle: {
+        get: function() {
+            return this._vehicle;
+        },
+        set: function(value) {
+            if (value === this._vehicle) {
+                return;
+            }
+
+            this._vehicle = value;
+
+            this.needsDraw = true;
+        }
+    },
+
+    _currentManufacturer: {
         value: null
     },
-    selectedDirectReports: {
-        value: null
-    },
-    
-    handleNavButtonAction: {
-        value: function(action) {
-            this.templateObjects.homeNav.active = (action.target.navid == "home");
-            this.templateObjects.contactNav.active = (action.target.navid == "contact");
-            this.templateObjects.mainScreen.switchValue = action.target.navid + "Screen";
+
+    prepareForDraw: {
+        value: function() {
+            window.addEventListener('beforeunload', this, true);
         }
     },
-    
-    handleSelectedEmployeeEvent: {
-        value: function (event){
-            document.getElementById("searchBar").classList.remove("open");
-            if (event.detail.employee)
-            {
-                this.selectedEmployee = event.detail.employee; // ??? data?
+
+    draw: {
+        value: function() {
+            if (this._currentManufacturer) {
+                this.element.classList.remove(this._currentManufacturer);
             }
-            else if (event.detail.employeeId)
-            {
-                this.selectedEmployee = this.searchResults[(event.detail.employeeId-1)];
-                //this.templateObjects.searchResultsController.selectedObjects = [this.selectedEmployee];
+
+            var manufacturer = this.getProperty("vehicle.manufacturer")
+            if (manufacturer) {
+                this.element.classList.add(manufacturer);
             }
-            var managerIdScope = this.selectedEmployee.id;
-            this.selectedDirectReports = this.searchResults.filter( function (element) {
-                    return element.managerId == managerIdScope;
-                });
-                
-            this.templateObjects.homeNav.active = false;
-            this.templateObjects.contactNav.active = false;
-            this.templateObjects.mainScreen.switchValue = "detailsScreen";
+
+            this._currentManufacturer = manufacturer;
         }
     },
-    
-    handleCloseSearchEvent: {
-        value: function (event){
-            document.getElementById("searchBar").classList.remove("open");
+
+    captureBeforeunload: {
+        value: function() {
+            this.reflectState();
         }
     },
-    
-    handleOpenSearchEvent: {
-        value: function (event){
-            console.log("in main event");
-            document.getElementById("searchBar").classList.add("open");
-            
+
+    handleShareButtonAction: {
+        value: function() {
+            this.reflectState();
         }
     },
-    
-    handleDoSearchEvent: {
-        value: function (event){
-            document.getElementById("searchBar").classList.add("open");
-            if (this.searchBoxElement.value != "")
-            {
-                searchKey = this.searchBoxElement.value;
-                this.templateObjects.searchResultsController.filterFunction = function (element) {
-                    var fullName = element.firstName + " " + element.lastName;
-                    return fullName.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
-                };
+
+    reflectState: {
+        value: function() {
+
+            if (!this.vehicle) {
+                return;
             }
-            else
-            {
-                this.templateObjects.searchResultsController.filterFunction = null;
-            }
+
+            var hash = encodeURIComponent(this.vehicle.toHash());
+            window.location.hash = "#!" + hash;
+
+            var url = "http://" + window.location.host.replace(/:\d+/, "") +  ":1337/save?hash=" + hash;
+
+            console.log("share", hash);
+
+            var req = new XMLHttpRequest();
+            req.open("POST", url);
+            req.send();
         }
     }
-    
+
 });

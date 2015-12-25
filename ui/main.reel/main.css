@@ -1,17 +1,32 @@
-.Main {}
+/* @override http://localhost:8082/carconfigurator/ui/main.reel/main.css */
 
-
-.dropdown-menu {
-    max-height: 400px;
-    overflow: auto;
-    width: 230px;
+body {
+    /* Removes the flickering when 3D transforms are used. */
+    -webkit-backface-visibility: hidden;
 }
 
-.list-item {
-    padding-top: 6px;
-    padding-left: 56px;
+.main {
+    height: 100%;
+    overflow: hidden;
 }
 
-.no-reports {
-    display: none;
+
+
+/* Adds a border with an iPad's dimensions */
+
+body:before {
+    /content: "";
+    position: absolute;
+    z-index: 1;
+    width: 1024px;
+    height: 672px;
+    box-sizing: border-box;
+    border: 1px solid red;
+    pointer-events: none;
+}
+
+
+/* Hide the car, save the fan */
+.collada {
+    /display: none;
 }

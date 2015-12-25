@@ -1,4 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
+<!-- <copyright>
+Copyright (c) 2012, Motorola Mobility LLC.
+All Rights Reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of Motorola Mobility LLC nor the names of its
+  contributors may be used to endorse or promote products derived from this
+  software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+</copyright> -->
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -7,155 +37,66 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 
     <script type="text/montage-serialization">
-        {
-            "owner": {
-                "properties": {
-                    "element": {"#": "main"},
-                    "searchBoxElement": {"#":"searchText"}
-                }
-            },
-            
-            "homeNav": {
-                "prototype": "montage/ui/native/button.reel",
-                "properties": {
-                    "element": {"#": "homeNav"},
-                    "identifier": "navButton",
-                    "navid": "home",
-                    "active" : true
-                },
-                "listeners": [
-                    {
-                        "type": "action",
-                        "listener": {"@": "owner"}
-                    }
-                ]
-            },
-            
-            "contactNav": {
-                "prototype": "montage/ui/native/button.reel",
-                "properties": {
-                    "element": {"#": "contactNav"},
-                    "identifier": "navButton",
-                    "navid": "contact"
-                },
-                "listeners": [
-                    {
-                        "type": "action",
-                        "listener": {"@": "owner"}
-                    }
-                ]
-            },
-            
-            "mainScreen": {
-                "prototype": "montage/ui/substitution.reel",
-                "properties": {
-                    "element": {"#": "mainScreen"},
-                 "switchComponents": {
-                    "homeScreen": {"@": "homeScreen"},
-                    "contactScreen": {"@": "contactScreen"},
-                    "detailsScreen": {"@": "detailsScreen"}
-                },
-                "switchValue": "homeScreen"
-                }
-            },
-            
-            "homeScreen": {
-                "prototype": "ui/home.reel",
-                "properties": {
-                    "element": {"#": "homeScreen"}
-                }
-            }, 
-            "contactScreen": {
-                "prototype": "ui/contact.reel",
-                "properties": {
-                    "element": {"#": "contactScreen"}
-                }
-            }, 
-            "detailsScreen": {
-                "prototype": "ui/employee-view.reel",
-                "properties": {
-                    "element": {"#": "detailsScreen"}
-                },
-                "bindings": {
-                    "data": {"<-": "@owner.selectedEmployee"},
-                    "directReports": {"<-": "@owner.selectedDirectReports"}
-                }
-                
-            }, 
-            "searchResultsController": {
-                "prototype": "montage/ui/controller/array-controller",
-                "properties": {
-
-                },
-                "bindings": {
-                    "content": {"<->": "@owner.searchResults"}
-                }
-            },
-            "employeeListItem": {
-                "prototype": "ui/employee-list-item-view.reel",
-                "properties": {
-                    "element": {
-                        "#": "employeeListItem"
-                    }
-                },
-                "bindings": {
-                    "data": {"<-": "@searchList.objectAtCurrentIteration"}
-                }
-            },
-            "searchList": {
-                "prototype": "montage/ui/repetition.reel",
-                "properties": {
-                    "element": {"#": "searchList"},
-                    "contentController": {"@": "searchResultsController"}
-                }
+    {
+        "owner": {
+            "properties": {
+                "element": {"#": "main"}
             }
-            
+        },
+
+        "manufacturerName": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "manufacturerName"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.vehicle.manufacturer"}
+            }
+        },
+
+        "modelName": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "modelName"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.vehicle.name"}
+            }
+        },
+
+        "showroom": {
+            "prototype": "ui/showroom.reel",
+            "properties": {
+                "element": {"#": "showroom"}
+            },
+            "bindings": {
+                "vehicle": {"<-": "@owner.vehicle"}
+            }
+        },
+        "shareButton": {
+            "prototype": "montage/ui/button.reel",
+            "properties": {
+                "element": {"#": "shareButton"}
+            },
+            "listeners": [
+                {
+                    "type": "action",
+                    "listener": {"@": "owner"},
+                    "capture": false
+                }
+            ]
         }
+        
+    }
     </script>
 </head>
 <body>
-    <div data-montage-id="main" class="Main">
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="javascript:void(0);">Employee Directory</a>
-        
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li data-montage-id="homeNav" class="home-menu active"><a href="javascript:void(0);">Home</a></li>
-                            <li data-montage-id="contactNav" class="contact-menu"><a href="javascript:void(0);">Contact</a></li>
-                        </ul>
-                        <form id="searchBar" class="navbar-search pull-right dropdown">
-                            <input id="searchText" type="search" class="search-query dropdown-toggle" placeholder="Search" autocomplete="off">
-                            <ul data-montage-id="searchList" class="dropdown-menu">
-                                <li data-montage-id="employeeListItem"></li>
-                            </ul>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="container">
-            <br/>
-        
-            <div class="row-fluid">
-                <div class="span12" id="content">
-                    <div data-montage-id="mainScreen">
-                    </div>
-                </div>
-            </div>
-        
-            <hr>
-        
-            <footer>
-                <p>Ported by Renaun Erickson 2013, Original app by <a href="http://coenraets.org/directory/">Christophe Coenraets</a></p>
-            </footer>
-        
-        </div>
-        
-
-    
+    <div data-montage-id="main" class="main">
+        <header class="title">
+            <h1><span data-montage-id="manufacturerName" class="manufacturerName"></span> <span data-montage-id="modelName" class="modelName"></span></h1>
+            <button data-montage-id="shareButton" class="shareButton">Share</button>
+        </header>
+        <div data-montage-id="showroom"></div>
     </div>
 </body>
 </html>
